@@ -9,7 +9,8 @@ pip install -r requirements.txt
 ```
 ##### Запуск сервиса: 
 ```
-uvicorn services.app.main:app
+cd services
+uvicorn app.main:app
 ```
 ##### API: 
 ```
@@ -20,4 +21,42 @@ http://127.0.0.1:8000/test - генерация случайных параме�
 ```
 
 ### 2. FastAPI микросервис в Docker-контейнере
-...
+
+##### Dockerfile:
+```
+cd services
+docker build . --tag my_image:0
+docker container run -p 8000:8000 my_image:0
+```
+CHECK: 
+```
+curl http://127.0.0.1:8000/test
+```
+
+##### Docker compose:
+```
+cd services
+docker compose build
+docker compose up
+```
+CHECK: 
+```
+curl http://127.0.0.1:8000/test
+```
+
+### 3. Запуск сервисов для системы мониторинга
+Отсюда, надо добавить в файл .env параметры, чтобы отделить работу первых двух пунктов а отследующих: 
+```
+FLG=true
+
+GRAFANA_USER=
+GRAFANA_PASS=
+```
+и запустить докер 
+```
+cd services
+docker compose build
+docker compose up
+```
+Grafana: http://localhost:3000
+Prometheus: http://localhost:9090

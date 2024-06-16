@@ -1,8 +1,8 @@
 # coding: utf-8
 """Класс FastApiHandler, который обрабатывает запросы API."""
+import os
 import dill
 import pandas as pd
-
 
 REQUIRED_PARAMS = [
     'floor', 'is_apartment', 'kitchen_area', 'living_area', 'rooms',
@@ -11,27 +11,27 @@ REQUIRED_PARAMS = [
     'has_elevator'
 ]
 
-MODEL_PATH = 'services/models/model.pkl'
-
 class FastApiHandler:
     """Класс FastApiHandler, который обрабатывает запрос и возвращает предсказание."""
 
     def __init__(self):
         """Инициализация переменных класса."""
-        self.model_path = MODEL_PATH
-        self.load_model(model_path=self.model_path)
+        self.model_path = os.path.join(os.getcwd(), 'models', 'model.pkl')
+        self.model = self.load_model()
         self.required_model_params = REQUIRED_PARAMS
 
-    def load_model(self, model_path: str):
+    def load_model(self):
         """Загружаем обученную модель.
         Args:
             model_path (str): Путь до модели.
         """
         try:
-            with open(model_path, 'rb') as model_file:
-                self.model = dill.load(model_file)
+            print(os.path.join(os.getcwd(), 'models', 'model.pkl'))
+            with open(self.model_path, 'rb') as model_file:
+                return dill.load(model_file)
         except Exception as e:
             print(f"Failed to load model: {e}")
+            raise e
 
     def price_predict(self, model_params: dict) -> float:
         df_sample = pd.DataFrame(model_params, index=[0])
