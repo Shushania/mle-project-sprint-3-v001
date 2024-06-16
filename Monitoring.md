@@ -1,6 +1,5 @@
 # Мониторинг
-![](services/grafana/Screenshot 2024-06-16 at 18.29.46.png)
-
+![alt text](services/grafana/dashboard.png)
 ## Для мониторинга выбраны метрики нескольких метрик:
 Использовались два типа клиентов Histogram, Gauge
 
