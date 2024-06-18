@@ -51,6 +51,8 @@ FLG=true
 
 GRAFANA_USER=
 GRAFANA_PASS=
+PROMETHEUS_PORT=9090
+GRAFANA_PORT=3000
 ```
 и запустить докер 
 ```

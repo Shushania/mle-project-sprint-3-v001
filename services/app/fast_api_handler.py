@@ -10,13 +10,14 @@ REQUIRED_PARAMS = [
     'latitude', 'longitude', 'ceiling_height', 'flats_count', 'floors_total', 
     'has_elevator'
 ]
+MODEL_PATH = os.path.join(os.getcwd(), 'models', 'model.pkl')
 
 class FastApiHandler:
     """Класс FastApiHandler, который обрабатывает запрос и возвращает предсказание."""
 
     def __init__(self):
         """Инициализация переменных класса."""
-        self.model_path = os.path.join(os.getcwd(), 'models', 'model.pkl')
+        self.model_path = MODEL_PATH
         self.model = self.load_model()
         self.required_model_params = REQUIRED_PARAMS
 
